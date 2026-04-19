@@ -72,7 +72,7 @@ public class CachingProxyCLI implements Runnable {
             String path = exchange.getRequestURI().getPath();
             String cacheKey = "proxy:" + path;
 
-            // 1. Önce Redis'e Bak
+            // 1. Check Redis first
             String cachedData = jedis.get(cacheKey);
 
             if (cachedData != null) {
@@ -81,7 +81,7 @@ public class CachingProxyCLI implements Runnable {
                 return;
             }
 
-            // 2. Redis'te yoksa Origin'e Git (MISS)
+            // 2. If not in Redis, fetch from Origin (MISS)
             System.out.println("CACHE MISS: " + path);
             try {
                 HttpRequest request = HttpRequest.newBuilder()
@@ -91,7 +91,7 @@ public class CachingProxyCLI implements Runnable {
                 HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
                 byte[] body = response.body();
 
-                // 3. Redis'e Kaydet (Cache it!)
+                // 3. Save to Redis (Cache it!)
                 jedis.setex(cacheKey, 3600, new String(body));
 
                 sendResponse(exchange, body, "MISS");
