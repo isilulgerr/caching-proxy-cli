@@ -27,22 +27,27 @@ A robust Command Line Interface (CLI) tool that functions as a caching proxy ser
 
 1. **Clone the repo:**
    ```bash
-   git clone [https://github.com/isilulgerr/caching-proxy-cli.git](https://github.com/isilulgerr/caching-proxy-cli.git)
+   git clone https://github.com/isilulgerr/caching-proxy-cli.git
    cd caching-proxy-cli
-Build the project:
+2. **Build the project:**
+   ```bash
+   mvn clean compile
+   ```
 
-Bash
-mvn clean compile
-Start the proxy:
+3. **Start the proxy:**
+   ```bash
+   mvn exec:java "-Dexec.mainClass=com.proxy.CachingProxyCLI" "-Dexec.args=--port 3000 --origin https://dummyjson.com"
+   ```
 
-Bash
-mvn exec:java "-Dexec.mainClass=com.proxy.CachingProxyCLI" "-Dexec.args=--port 3000 --origin [https://dummyjson.com](https://dummyjson.com)"
-Clearing the Cache
-Bash
-mvn exec:java "-Dexec.mainClass=com.proxy.CachingProxyCLI" "-Dexec.args=--clear-cache"
-📊 How It Works
-Initial Request (MISS): The proxy fetches data from the origin server, saves it to Redis, and returns it with X-Cache: MISS.
+4. **Clear the cache:**
+   ```bash
+   mvn exec:java "-Dexec.mainClass=com.proxy.CachingProxyCLI" "-Dexec.args=--clear-cache"
+   ```
 
-Subsequent Requests (HIT): The proxy serves data directly from Redis, achieving near-zero latency with X-Cache: HIT.
+## 📊 How It Works
 
-Developed by Işıl Ülger - Computer Engineer
+- **Initial Request (MISS):** The proxy fetches data from the origin server, saves it to Redis, and returns it with `X-Cache: MISS`.
+- **Subsequent Requests (HIT):** The proxy serves data directly from Redis, achieving near-zero latency with `X-Cache: HIT`.
+
+---
+*Developed by Işıl Ülger - Computer Engineer*
