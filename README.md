@@ -1,5 +1,6 @@
 # ⚡ CLI Caching Proxy Server
 **Project URL:** [https://github.com/isilulgerr/caching-proxy-cli](https://github.com/isilulgerr/caching-proxy-cli)
+
 A robust Command Line Interface (CLI) tool that functions as a caching proxy server. It optimizes network performance by forwarding requests to an origin server and caching the responses in **Redis** for instantaneous subsequent retrieval.
 
 ## 🌟 Key Features
